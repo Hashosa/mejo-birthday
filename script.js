@@ -1,179 +1,157 @@
-// تشغيل الموسيقى والكونفيتي
-const bgMusic = document.getElementById('bgMusic');
-let isMusicPlaying = false;
-
+// تشغيل/إيقاف الموسيقى
 function toggleMusic() {
-    if (isMusicPlaying) {
-        bgMusic.pause();
-        isMusicPlaying = false;
+    const audio = document.getElementById('bgMusic');
+    const btn = event.target;
+    
+    if (audio.paused) {
+        audio.play();
+        btn.textContent = '🎵 إيقاف الموسيقى';
+        btn.style.background = 'linear-gradient(135deg, #23d5ab, #23a6d5)';
     } else {
-        bgMusic.play().catch(err => console.log('خطأ في تشغيل الموسيقى:', err));
-        isMusicPlaying = true;
+        audio.pause();
+        btn.textContent = '🎵 تشغيل الموسيقى';
+        btn.style.background = 'linear-gradient(135deg, #f093fb, #f5576c)';
     }
 }
 
-// دالة الكونفيتي (قطع الفرح)
+// دالة الكونفيتي (الألعاب الملونة)
 function playConfetti() {
-    const confettiContainer = document.getElementById('confetti-container');
-    const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#95E1D3', '#FF8C94', '#A8D8EA', '#FFD3B6', '#FFAAA5'];
+    const container = document.getElementById('confetti-container');
     
     // إنشاء 100 قطعة كونفيتي
     for (let i = 0; i < 100; i++) {
         const confetti = document.createElement('div');
         confetti.className = 'confetti';
-        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        // الألوان المختلفة
+        const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#95E1D3', '#FF8C94', '#A8D8EA', '#FFD3B6', '#FFAAA5'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        // الأشكال المختلفة
+        const shapes = Math.random();
+        if (shapes > 0.5) {
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.borderRadius = '50%';
+            confetti.style.backgroundColor = randomColor;
+        } else {
+            confetti.style.width = '8px';
+            confetti.style.height = '8px';
+            confetti.style.backgroundColor = randomColor;
+            confetti.style.transform = 'rotate(45deg)';
+        }
+        
+        // الموضع العشوائي
         confetti.style.left = Math.random() * 100 + '%';
         confetti.style.top = '-10px';
         
-        confettiContainer.appendChild(confetti);
-        
-        // حركة الكونفيتي
-        const duration = Math.random() * 2 + 2;
+        // الحركة
+        const duration = Math.random() * 3 + 2;
         const delay = Math.random() * 0.5;
-        const xMove = (Math.random() - 0.5) * 400;
+        const xMove = (Math.random() - 0.5) * 300;
         
-        confetti.animate([
-            {
-                opacity: 1,
-                transform: `translate(0, 0) rotate(0deg)`
-            },
-            {
-                opacity: 0,
-                transform: `translate(${xMove}px, ${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`
-            }
-        ], {
-            duration: duration * 1000,
-            delay: delay * 1000,
-            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-        });
+        confetti.style.animation = `confettiFall ${duration}s linear ${delay}s forwards`;
         
-        // حذف الكونفيتي بعد انتهاء الحركة
+        container.appendChild(confetti);
+        
+        // حذف العنصر بعد انتهاء الحركة
         setTimeout(() => {
             confetti.remove();
         }, (duration + delay) * 1000);
     }
     
-    // تشغيل الموسيقى تلقائياً عند الاحتفال
-    if (!isMusicPlaying) {
-        toggleMusic();
+    // تشغيل الموسيقى تلقائياً
+    const audio = document.getElementById('bgMusic');
+    if (audio.paused) {
+        audio.play();
     }
 }
 
-// تأثيرات إضافية عند التمرير على الأزرار
-document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-5px) scale(1.05)';
-    });
-    
-    button.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-});
-
-// تأثير النقر على الصورة
-document.querySelector('.birthday-image').addEventListener('click', function() {
-    playConfetti();
-});
-
-// رسالة تحية عند تحميل الصفحة
-window.addEventListener('load', function() {
-    console.log('🎉 مرحباً بك في صفحة عيد ميلاد ميجو!');
-    console.log('❤️ كل سنة وانت طيب يا حبيب قلبي');
-    
-    // تأثير ترحيبي خفيف
-    setTimeout(() => {
-        playConfetti();
-    }, 1500);
-});
-
-// إضافة حركة عند التمرير على الصورة
-const image = document.querySelector('.birthday-image');
-image.addEventListener('mouseover', function() {
-    this.style.transform = 'scale(1.05) rotate(5deg)';
-    this.style.filter = 'brightness(1.1)';
-});
-
-image.addEventListener('mouseout', function() {
-    this.style.transform = 'scale(1) rotate(0deg)';
-    this.style.filter = 'brightness(1)';
-});
-
-// تأثير الضغط على الصورة
-image.addEventListener('click', function() {
-    this.style.animation = 'none';
-    setTimeout(() => {
-        this.style.animation = 'float-image 3s ease-in-out infinite';
-    }, 10);
-});
-
-// إنشاء بالونات إضافية عند التمرير
-document.addEventListener('mousemove', function(e) {
-    // يمكن إضافة تأثيرات إضافية هنا مستقبلاً
-});
-
-// دالة لإرسال الرسائل (إضافة ميزة تفاعلية)
-function addMessage(text) {
-    const messageBox = document.querySelector('.message-box');
-    const newMessage = document.createElement('p');
-    newMessage.className = 'message';
-    newMessage.textContent = text;
-    newMessage.style.animation = 'fadeInUp 0.8s ease-out';
-    messageBox.appendChild(newMessage);
-}
-
-// تفعيل نمط داكن/فاتح عند الضغط على مفتاح معين
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'd' || e.key === 'D') {
-        document.body.style.filter = document.body.style.filter === 'invert(1)' ? 'invert(0)' : 'invert(1)';
-    }
-});
-
-// حفظ النقرات وإنشاء تأثيرات خاصة
-let clickCount = 0;
-document.addEventListener('click', function() {
-    clickCount++;
-    if (clickCount % 5 === 0) {
-        playConfetti();
-    }
-});
-
-// تشغيل حركة تفاعلية عند الضغط على أي مكان
-document.addEventListener('click', function(e) {
-    const ripple = document.createElement('div');
-    ripple.style.position = 'fixed';
-    ripple.style.left = e.clientX + 'px';
-    ripple.style.top = e.clientY + 'px';
-    ripple.style.width = '20px';
-    ripple.style.height = '20px';
-    ripple.style.borderRadius = '50%';
-    ripple.style.border = '2px solid #FF6B6B';
-    ripple.style.pointerEvents = 'none';
-    ripple.style.zIndex = '1000';
-    
-    document.body.appendChild(ripple);
-    
-    ripple.animate([
-        {
-            transform: 'translate(-50%, -50%) scale(1)',
-            opacity: 1
-        },
-        {
-            transform: 'translate(-50%, -50%) scale(3)',
-            opacity: 0
+// إضافة الحركة للكونفيتي في CSS
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes confettiFall {
+        to {
+            transform: translateY(100vh) rotate(720deg);
+            opacity: 0;
         }
-    ], {
-        duration: 600,
-        easing: 'ease-out'
-    });
-    
+    }
+`;
+document.head.appendChild(style);
+
+// تشغيل احتفال عند تحميل الصفحة
+window.addEventListener('load', () => {
+    // احتفال بسيط عند التحميل
     setTimeout(() => {
-        ripple.remove();
-    }, 600);
+        playConfetti();
+    }, 500);
 });
 
-// إضافة رسائل شاشة اللمس
-if (window.innerWidth <= 768) {
-    document.querySelector('.birthday-image').addEventListener('touchstart', function() {
-        playConfetti();
+// إضافة تأثير موجة عند الضغط على الزرار
+document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
     });
+});
+
+// مؤثرات الفأرة - ظهور النجوم عند الحركة
+document.addEventListener('mousemove', (e) => {
+    // اختياري: إضافة تأثيرات بصرية إضافية
+    if (Math.random() > 0.98) {
+        createStar(e.clientX, e.clientY);
+    }
+});
+
+function createStar(x, y) {
+    const star = document.createElement('div');
+    star.innerHTML = '✨';
+    star.style.position = 'fixed';
+    star.style.left = x + 'px';
+    star.style.top = y + 'px';
+    star.style.pointerEvents = 'none';
+    star.style.fontSize = '20px';
+    star.style.animation = 'starFade 1s ease-out forwards';
+    star.style.zIndex = '3';
+    
+    document.body.appendChild(star);
+    
+    setTimeout(() => star.remove(), 1000);
 }
+
+// إضافة حركة النجوم
+const starStyle = document.createElement('style');
+starStyle.textContent = `
+    @keyframes starFade {
+        0% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-30px) scale(0);
+        }
+    }
+`;
+document.head.appendChild(starStyle);
+
+// حركات تفاعلية على العناصر الرئيسية
+const container = document.querySelector('.container');
+document.addEventListener('mousemove', (e) => {
+    const rect = container.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const angleX = (e.clientY - centerY) / 100;
+    const angleY = (e.clientX - centerX) / 100;
+    
+    // تأثير طفيف جداً
+    container.style.transform = `perspective(1000px) rotateX(${angleX * 0.5}deg) rotateY(${angleY * 0.5}deg)`;
+});

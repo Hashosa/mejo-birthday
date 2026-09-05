@@ -7,12 +7,11 @@
 body {
     font-family: 'Arial', sans-serif;
     overflow: hidden;
-    direction: rtl;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 /* الخلفية المتحركة */
@@ -22,62 +21,71 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #FFE66D, #95E1D3, #FF8C94);
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-    z-index: -2;
+    animation: gradientShift 15s ease infinite;
+    z-index: 1;
 }
 
-@keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
-/* البلالين العائمة */
+/* البلالين */
 .balloons-container {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
+    top: 0;
+    left: 0;
     pointer-events: none;
-    z-index: 1;
+    z-index: 2;
 }
 
 .balloon {
     position: absolute;
-    width: 60px;
-    height: 80px;
-    border-radius: 50% 50% 50% 0;
     bottom: -100px;
-    opacity: 0.9;
-    box-shadow: inset -3px -3px 8px rgba(0, 0, 0, 0.2);
-    animation: float linear infinite;
-    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    width: 50px;
+    height: 70px;
+    border-radius: 50% 50% 50% 0;
+    background-color: var(--color);
+    animation: float var(--duration) infinite ease-in;
+    transform: rotate(-45deg);
+    box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.balloon::before {
+.balloon::after {
     content: '';
     position: absolute;
-    bottom: -30px;
+    bottom: -50px;
     left: 50%;
-    transform: translateX(-50%);
     width: 2px;
-    height: 30px;
-    background: rgba(0, 0, 0, 0.2);
+    height: 50px;
+    background: rgba(0, 0, 0, 0.1);
+    transform: translateX(-50%);
 }
+
+.balloon:nth-child(1) { left: 10%; }
+.balloon:nth-child(2) { left: 20%; }
+.balloon:nth-child(3) { left: 30%; }
+.balloon:nth-child(4) { left: 40%; }
+.balloon:nth-child(5) { left: 50%; }
+.balloon:nth-child(6) { left: 60%; }
+.balloon:nth-child(7) { left: 70%; }
+.balloon:nth-child(8) { left: 80%; }
 
 @keyframes float {
     0% {
         bottom: -100px;
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.9;
-    }
-    90% {
-        opacity: 0.9;
+        opacity: 1;
     }
     100% {
         bottom: 100vh;
@@ -85,100 +93,46 @@ body {
     }
 }
 
-.balloon:nth-child(1) {
-    left: 10%;
-    background-color: var(--color);
-    animation-duration: var(--duration);
-    animation-delay: var(--delay);
-}
-
-.balloon:nth-child(2) {
-    left: 15%;
-    background-color: var(--color);
-    animation-duration: var(--duration);
-    animation-delay: var(--delay);
-}
-
-.balloon:nth-child(3) {
-    left: 20%;
-    background-color: var(--color);
-    animation-duration: var(--duration);
-    animation-delay: var(--delay);
-}
-
-.balloon:nth-child(4) {
-    left: 25%;
-    background-color: var(--color);
-    animation-duration: var(--duration);
-    animation-delay: var(--delay);
-}
-
-.balloon:nth-child(5) {
-    left: 30%;
-    background-color: var(--color);
-    animation-duration: var(--duration);
-    animation-delay: var(--delay);
-}
-
-.balloon:nth-child(6) {
-    left: 35%;
-    background-color: var(--color);
-    animation-duration: var(--duration);
-    animation-delay: var(--delay);
-}
-
-.balloon:nth-child(7) {
-    left: 40%;
-    background-color: var(--color);
-    animation-duration: var(--duration);
-    animation-delay: var(--delay);
-}
-
-.balloon:nth-child(8) {
-    left: 45%;
-    background-color: var(--color);
-    animation-duration: var(--duration);
-    animation-delay: var(--delay);
-}
-
-/* الشرائط */
+/* الشرائط الملونة */
 .streamers {
     position: fixed;
+    width: 100%;
+    height: 100%;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 30px;
-    background: repeating-linear-gradient(
-        90deg,
-        #FF6B6B 0px,
-        #FF6B6B 20px,
-        #4ECDC4 20px,
-        #4ECDC4 40px,
-        #FFE66D 40px,
-        #FFE66D 60px,
-        #95E1D3 60px,
-        #95E1D3 80px
-    );
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    z-index: 10;
+    pointer-events: none;
+    z-index: 2;
+    background: 
+        repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255, 107, 107, 0.15) 35px, rgba(255, 107, 107, 0.15) 70px),
+        repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(78, 205, 196, 0.15) 35px, rgba(78, 205, 196, 0.15) 70px);
+    animation: streamersMove 20s linear infinite;
+}
+
+@keyframes streamersMove {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100px 100px;
+    }
 }
 
 /* المحتوى الرئيسي */
 .container {
     position: relative;
-    z-index: 5;
+    z-index: 3;
     text-align: center;
     background: rgba(255, 255, 255, 0.95);
-    padding: 40px;
+    padding: 60px 40px;
     border-radius: 30px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     max-width: 600px;
     width: 90%;
     backdrop-filter: blur(10px);
-    animation: slideIn 0.8s ease-out;
+    animation: slideUp 0.8s ease-out;
 }
 
-@keyframes slideIn {
+@keyframes slideUp {
     from {
         opacity: 0;
         transform: translateY(50px);
@@ -192,14 +146,14 @@ body {
 /* الرقم 33 المميز */
 .age-display {
     font-size: 120px;
-    font-weight: bold;
-    background: linear-gradient(135deg, #FF6B6B, #FFE66D);
+    font-weight: 900;
+    background: linear-gradient(135deg, #667eea, #764ba2, #ee7752);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     animation: pulse 2s ease-in-out infinite;
-    text-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes pulse {
@@ -211,129 +165,127 @@ body {
     }
 }
 
-/* الصورة */
+/* صورة ميجو */
 .image-container {
+    position: relative;
     margin: 30px 0;
+    display: inline-block;
 }
 
 .birthday-image {
     width: 250px;
     height: 250px;
-    border-radius: 50%;
-    border: 5px solid #FF6B6B;
+    border-radius: 20px;
     object-fit: cover;
-    box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
-    animation: float-image 3s ease-in-out infinite;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    border: 8px solid white;
+    animation: imageFloat 3s ease-in-out infinite;
 }
 
-@keyframes float-image {
+@keyframes imageFloat {
     0%, 100% {
         transform: translateY(0px);
     }
     50% {
-        transform: translateY(-10px);
+        transform: translateY(-15px);
     }
 }
 
-/* الاسم */
+/* الاسم واللقب */
 .name {
-    font-size: 48px;
+    font-size: 50px;
     color: #333;
-    margin: 20px 0 10px;
-    font-weight: bold;
+    margin: 30px 0 10px 0;
+    animation: fadeInDown 0.8s ease-out 0.2s backwards;
 }
 
 .nickname {
     color: #FF6B6B;
     font-style: italic;
-    display: block;
-    font-size: 36px;
-    margin-top: 5px;
+    font-size: 45px;
 }
 
-/* التاريخ */
 .date {
     font-size: 24px;
-    color: #4ECDC4;
+    color: #764ba2;
     margin-bottom: 30px;
     font-weight: bold;
 }
 
 /* صندوق الرسالة */
 .message-box {
-    background: linear-gradient(135deg, #FFE66D, #95E1D3);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
     padding: 25px;
-    border-radius: 20px;
+    border-radius: 15px;
     margin: 30px 0;
-    box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #667eea;
+    animation: slideInLeft 0.8s ease-out 0.4s backwards;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .message {
     font-size: 18px;
     color: #333;
     line-height: 1.8;
-    margin: 12px 0;
+    margin: 10px 0;
     font-weight: 500;
-    animation: fadeInUp 0.8s ease-out backwards;
-}
-
-.message:nth-child(1) { animation-delay: 0.2s; }
-.message:nth-child(2) { animation-delay: 0.4s; }
-.message:nth-child(3) { animation-delay: 0.6s; }
-.message:nth-child(4) { animation-delay: 0.8s; }
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 /* الأزرار */
 .buttons {
     display: flex;
     gap: 15px;
-    margin-top: 30px;
     justify-content: center;
+    margin: 40px 0 30px 0;
     flex-wrap: wrap;
 }
 
 .btn {
     padding: 15px 30px;
-    font-size: 16px;
+    font-size: 18px;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    font-weight: bold;
     transition: all 0.3s ease;
+    font-weight: bold;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #FF6B6B, #FF8C94);
+    background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
 }
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
 }
 
 .btn-secondary {
-    background: linear-gradient(135deg, #4ECDC4, #95E1D3);
+    background: linear-gradient(135deg, #f093fb, #f5576c);
     color: white;
 }
 
 .btn-secondary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4);
+    box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
 }
 
-.btn:active {
+.btn-secondary:active {
     transform: translateY(-1px);
 }
 
@@ -342,65 +294,83 @@ body {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .candle {
-    width: 30px;
+    width: 40px;
     height: 60px;
     background: linear-gradient(135deg, #FFD700, #FFA500);
-    border-radius: 10px;
+    border-radius: 5px;
     position: relative;
-    box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    animation: candleBounce 1.5s ease-in-out infinite;
+}
+
+.candle:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.candle:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.candle:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes candleBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .flame {
     position: absolute;
-    width: 15px;
-    height: 25px;
-    background: linear-gradient(to top, #FF6B6B, #FFE66D);
-    border-radius: 50% 50% 50% 0;
     top: -20px;
     left: 50%;
-    transform: translateX(-50%);
+    width: 15px;
+    height: 30px;
+    background: radial-gradient(ellipse at center, #FFD700, #FFA500 70%, transparent);
+    border-radius: 50% 50% 50% 0;
+    transform: translateX(-50%) rotate(-45deg);
     animation: flicker 0.6s ease-in-out infinite;
-    box-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
 }
 
 @keyframes flicker {
     0%, 100% {
-        transform: translateX(-50%) scaleY(1);
+        transform: translateX(-50%) rotate(-45deg) translateY(0);
         opacity: 1;
     }
     50% {
-        transform: translateX(-50%) scaleY(0.9);
-        opacity: 0.9;
+        transform: translateX(-50%) rotate(-45deg) translateY(-5px) scaleY(1.1);
+        opacity: 0.8;
     }
 }
 
-/* كونفيتي الاحتفال */
+/* الكونفيتي */
 #confetti-container {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
+    top: 0;
+    left: 0;
     pointer-events: none;
-    z-index: 20;
+    z-index: 4;
 }
 
 .confetti {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    opacity: 1;
+    position: absolute;
+    pointer-events: none;
 }
 
-/* واجهة الهاتف */
-@media (max-width: 768px) {
+/* استجابة الشاشات الصغيرة */
+@media (max-width: 600px) {
     .container {
-        padding: 30px 20px;
-        margin: 20px;
+        padding: 40px 20px;
     }
 
     .age-display {
@@ -412,7 +382,7 @@ body {
     }
 
     .nickname {
-        font-size: 28px;
+        font-size: 32px;
     }
 
     .birthday-image {

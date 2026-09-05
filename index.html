@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عيد ميلاد ميجو 🎂</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- خلفية بتتحرك -->
+    <div class="animated-background"></div>
+    
+    <!-- البلالين العائمة -->
+    <div class="balloons-container">
+        <div class="balloon" style="--color: #FF6B6B; --delay: 0s; --duration: 8s;"></div>
+        <div class="balloon" style="--color: #4ECDC4; --delay: 1s; --duration: 9s;"></div>
+        <div class="balloon" style="--color: #FFE66D; --delay: 2s; --duration: 7s;"></div>
+        <div class="balloon" style="--color: #95E1D3; --delay: 3s; --duration: 10s;"></div>
+        <div class="balloon" style="--color: #FF8C94; --delay: 4s; --duration: 8.5s;"></div>
+        <div class="balloon" style="--color: #A8D8EA; --delay: 5s; --duration: 9.5s;"></div>
+        <div class="balloon" style="--color: #FFD3B6; --delay: 1.5s; --duration: 8s;"></div>
+        <div class="balloon" style="--color: #FFAAA5; --delay: 2.5s; --duration: 10s;"></div>
+    </div>
+
+    <!-- الشرائط الملونة -->
+    <div class="streamers"></div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
+        <!-- الرقم 33 المميز -->
+        <div class="age-display">33</div>
+
+        <!-- الصورة -->
+        <div class="image-container">
+            <img src="mejo.jpg" alt="ميجو" class="birthday-image">
+        </div>
+
+        <!-- الاسم والتحية -->
+        <div class="content">
+            <h1 class="name">مجدي <span class="nickname">ميجو</span></h1>
+            <p class="date">4 سبتمبر</p>
+
+            <!-- الرسالة -->
+            <div class="message-box">
+                <p class="message">
+                    كل سنة وانت طيب يا حبيب قلبي ❤️
+                </p>
+                <p class="message">
+                    ربنا يخليك ليا وميحرمنيش منك 🙏
+                </p>
+                <p class="message">
+                    ونفضل سوا العمر كله 💛
+                </p>
+                <p class="message">
+                    وافرح بيك قريب واشوفك مبسوط ومتهني في حياتك 😊
+                </p>
+            </div>
+
+            <!-- أزرار التفاعل -->
+            <div class="buttons">
+                <button class="btn btn-primary" onclick="playConfetti()">🎉 احتفل معاه</button>
+                <button class="btn btn-secondary" onclick="toggleMusic()">🎵 تشغيل الموسيقى</button>
+            </div>
+        </div>
+
+        <!-- الشموع -->
+        <div class="candles">
+            <div class="candle">
+                <div class="flame"></div>
+            </div>
+            <div class="candle">
+                <div class="flame"></div>
+            </div>
+            <div class="candle">
+                <div class="flame"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- كونفيتي الاحتفال -->
+    <div id="confetti-container"></div>
+
+    <!-- موسيقى الخلفية -->
+    <audio id="bgMusic" src="birthday-music.mp3" loop></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
